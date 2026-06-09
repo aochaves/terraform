@@ -2,6 +2,15 @@
 
 Este projeto implementa uma infraestrutura altamente disponível e escalável na AWS para uma aplicação web, distribuída entre duas zonas de disponibilidade (Zone A e Zone B). A implementação segue os princípios de SRE (Site Reliability Engineering) para garantir resiliência e elasticidade.
 
+## 👥 Integrantes do Projeto
+
+| Nome | RM |
+|--------|--------|
+| Fabio Fumio Wada | 10741479 |
+| Sweeli Suzuki | 10423319 |
+| Alberto Oliveira | 10743782 |
+
+
 ## 🏗️ Arquitetura
 
 A solução provisiona os seguintes componentes:
@@ -101,3 +110,4 @@ Este projeto foi baseado nas diretrizes e boas práticas apresentadas em:
 ## 📌 Objetivo
 
 Demonstrar a implementação de uma arquitetura resiliente, escalável e automatizada utilizando Terraform e serviços gerenciados da AWS, seguindo práticas modernas de Infraestrutura como Código (IaC), DevOps e SRE.
+
