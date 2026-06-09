@@ -1,12 +1,27 @@
 # Modelo de Maquina com o AMI e o tipo o
 resource "aws_launch_template" "app_config" {
-  image_id      = "ami-0b6c6ebed2801a5cb"
-  instance_type = "t2.micro"
-  vpc_security_group_ids = [aws_security_group.web_sg.id]
+  image_id      = var.ami_id
+  instance_type = var.instance_type
+
+  vpc_security_group_ids = [
+    aws_security_group.web_sg.id
+  ]
+
+  user_data = base64encode(<<-EOF
+#!/bin/bash
+yum update -y
+yum install -y httpd
+systemctl enable httpd
+systemctl start httpd
+echo "<h1>Servidor funcionando</h1>" > /var/www/html/index.html
+EOF
+  )
+
   tag_specifications {
     resource_type = "instance"
-    tags = { 
-      Name = "WebServer-ASG" 
+
+    tags = {
+      Name = "WebServer-ASG"
     }
   }
 }
@@ -25,5 +40,20 @@ resource "aws_autoscaling_group" "app_asg" {
   launch_template {
     id      = aws_launch_template.app_config.id
     version = "$Latest"
+  }
+}
+
+# definir o crescimento de 80%
+resource "aws_autoscaling_policy" "cpu_target" {
+  name                   = "cpu-target"
+  autoscaling_group_name = aws_autoscaling_group.app_asg.name
+  policy_type            = "TargetTrackingScaling"
+
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+
+    target_value = 80
   }
 }
