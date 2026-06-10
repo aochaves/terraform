@@ -4,7 +4,7 @@ Este projeto implementa uma infraestrutura altamente disponível e escalável na
 
 ## 👥 Integrantes do Projeto
 
-| Nome | RM |
+| Nome | RA |
 |--------|--------|
 | Fabio Fumio Wada | 10741479 |
 | Sweeli Suzuki | 10423319 |
